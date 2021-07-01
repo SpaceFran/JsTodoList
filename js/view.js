@@ -5,14 +5,8 @@ export default class View { //Only one import default per file and allows you to
         this.title = document.getElementById('title');
         this.description = document.getElementById('description');
         //Onlick add
-        const btnAdd = document.getElementById('add');
-        btnAdd.onclick = () => this.addTodo(this.title.value, this.description.value);
-        //onclick delete
-        this.btnDelete = document.getElementsByClassName('btn-danger');
-        //this.btnDelete.onclick = () => this.removeTodo("añadir");
-        //onclick delete edit
-        this.btnEdit = document.getElementsByClassName('btn-primary');
-        //this.btnEdit = () => this.editTodo("editar");    
+        this.btnAdd = document.getElementById('add');
+        this.btnAdd.onclick = () => this.addTodo(this.title.value, this.description.value);  
     }
 
     setModel(model){
@@ -36,6 +30,7 @@ export default class View { //Only one import default per file and allows you to
             this.title.value = '';
             this.description.value = '';
         }
+
     }
 
     createRow(todo){
@@ -51,22 +46,23 @@ export default class View { //Only one import default per file and allows you to
         </td>
         <td class="text-center"><input type="checkbox"></td>
         <td class="text-right">
-            <button class="btn btn-primary mb-1">
+            <button class="btn btn-primary id_of_${todo.id}_edit mb-1">
                 <i class="fa fa-pencil"></i>
             </button>
-            <button class="btn btn-danger id_of_${todo.id} mb-1 ml-1">
+            <button class="btn btn-danger id_of_${todo.id}_delete mb-1 ml-1">
                 <i class="fa fa-trash"></i>
             </button>
         </td>
         `;
+
+        //Onclick Remove
+        const btnDelete = document.getElementsByClassName(`id_of_${todo.id}_delete`)[0];
+        btnDelete.onclick = () => this.removeTodo(btnDelete);
     }
-    /*
+    
     removeTodo(row){
-        console.log(row);
+        this.model.removeTodo(row);
+        row.parentElement.parentElement.remove();
     }
-
-    editTodo(row){
-
-    }
-    */
+    
 }
