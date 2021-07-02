@@ -44,7 +44,7 @@ export default class View { //Only one import default per file and allows you to
         <td>
             ${todo.description}
         </td>
-        <td class="text-center"><input type="checkbox"></td>
+        <td class="text-center"><input class= "id_of_${todo.id}_check" type="checkbox"></td>
         <td class="text-right">
             <button class="btn btn-primary id_of_${todo.id}_edit mb-1">
                 <i class="fa fa-pencil"></i>
@@ -58,11 +58,19 @@ export default class View { //Only one import default per file and allows you to
         //Onclick Remove
         const btnDelete = document.getElementsByClassName(`id_of_${todo.id}_delete`)[0];
         btnDelete.onclick = () => this.removeTodo(btnDelete);
+
+        //Checkbox mark as completed or not
+        const toggle = document.getElementsByClassName(`id_of_${todo.id}_check`)[0];
+        toggle.onclick = () => this.toggleCompleted(toggle);
     }
     
     removeTodo(row){
         this.model.removeTodo(row);
         row.parentElement.parentElement.remove();
+    }
+
+    toggleCompleted(toggle){
+        this.model.toggleCompleted(toggle);
     }
     
 }

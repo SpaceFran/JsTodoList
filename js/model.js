@@ -2,7 +2,7 @@ export default class Model { //Only one import default per file and allows you t
 
     constructor(){
         this.view = null;
-        this.todos = [];
+        this.todos = []; //This is our "Database"
         this.id = 0;
     }
 
@@ -29,8 +29,20 @@ export default class Model { //Only one import default per file and allows you t
 
     removeTodo(row){ //This method receives the HTML element (button clicked)
         const index = row.classList.item(2);
-        const find = this.todos.findIndex((todo) => `id_of_${todo.id}_delete` === index); //Returns the index of the element in the array
+        const find = this.todos.findIndex((todo) => `id_of_${todo.id}_delete` === index); //Returns the position of the element in the array
         this.todos.splice(find, 1); //Where it starts and how many to remove after that
+        console.log(this.todos);
+    }
+
+    toggleCompleted(toggle){
+        const index = toggle.classList[0];
+        const find = this.todos.findIndex((todo) => `id_of_${todo.id}_check` === index);
+        if (toggle.checked){
+            this.todos[find].completed = true;
+        }
+        else{
+            this.todos[find].completed = false;
+        }
         console.log(this.todos);
     }
 }
