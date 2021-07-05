@@ -2,6 +2,7 @@ export default class View { //Only one import default per file and allows you to
 
     constructor(){
         this.model = null;
+        this.localstorage = null;
         this.title = document.getElementById('title');
         this.description = document.getElementById('description');
         //Onlick add
@@ -11,6 +12,15 @@ export default class View { //Only one import default per file and allows you to
 
     setModel(model){
         this.model = model;
+    }
+
+    getLocalStorage(localstorage){
+        this.localstorage = localstorage;
+    }
+
+    render(){
+        const todos = this.model.getTodos();
+        todos.forEach(todo => this.createRow(todo));
     }
 
     addTodo(title, description){
@@ -30,6 +40,9 @@ export default class View { //Only one import default per file and allows you to
             this.title.value = '';
             this.description.value = '';
         }
+
+        const retrievedLocalStorageTodos = this.localstorage.retrieve(); //Get the LocalStorage
+        console.log('Retrieved from Local Storage', retrievedLocalStorageTodos);
 
     }
 
@@ -61,6 +74,7 @@ export default class View { //Only one import default per file and allows you to
 
         //Checkbox mark as completed or not
         const toggle = document.getElementsByClassName(`id_of_${todo.id}_check`)[0];
+        toggle.checked = todo.completed;
         toggle.onclick = () => this.toggleCompleted(toggle);
     }
     

@@ -8,10 +8,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const view = new View();
     const saveLocalStorage = new LocalStorage();
 
+    //Connecting View and Model
     model.setView(view);
     view.setModel(model);
 
+    //Connecting LocalStorage and Model
     saveLocalStorage.getModel(model);
     model.getLocalStorage(saveLocalStorage);
+
+    //Connecting LocalStorage and View
+    saveLocalStorage.getView(view);
+    view.getLocalStorage(saveLocalStorage);
+
+    view.render();
 
 })

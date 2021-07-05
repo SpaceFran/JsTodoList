@@ -2,13 +2,27 @@ export default class Model { //Only one import default per file and allows you t
 
     constructor(){
         this.view = null;
-        this.localstorage = null;
-        this.todos = []; //This is our "Database"
-        this.id = 0;
+        this.todos = JSON.parse(localStorage.getItem('todos')); //This is our "Database"
+        if(!this.todos || this.todos.length < 1){
+            this.todos = [
+                {
+                    id: 0,
+                    title: 'Example Title',
+                    description: 'Example description',
+                    completed: false,
+                }
+            ]
+            this.id = 1;
+        }
+        this.id = this.todos[this.todos.length - 1].id + 1;
     }
 
     setView(view){
         this.view = view;
+    }
+
+    getLocalStorage(localstorage){
+        this.localstorage = localstorage;
     }
 
     getTodos(){
@@ -25,7 +39,7 @@ export default class Model { //Only one import default per file and allows you t
 
         this.todos.push(todo);
         this.localstorage.save(); //Add the todo to the localstorage after we add the todo the the array.
-        console.log(this.todos);
+        console.log('Database (Array)',this.todos);
         return{...todo}; //Creating another todo exactly the same but we make sure the (const todo) one is kinda encapsulated.
     }
 
@@ -43,16 +57,15 @@ export default class Model { //Only one import default per file and allows you t
         if (toggle.checked){
             this.todos[find].completed = true;
             this.localstorage.save();
+            console.log(this.todos);
+            return true
         }
         else{
             this.todos[find].completed = false;
             this.localstorage.save();
+            console.log(this.todos);
+            return false
         }
-        console.log(this.todos);
-    }
-
-    getLocalStorage(localstorage){
-        this.localstorage = localstorage;
     }
 
 }
