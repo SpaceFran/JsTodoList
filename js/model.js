@@ -56,16 +56,12 @@ export default class Model { //Only one import default per file and allows you t
         const find = this.todos.findIndex((todo) => `id_of_${todo.id}_check` === index);
         if (toggle.checked){
             this.todos[find].completed = true;
-            this.localstorage.save();
-            console.log(this.todos);
-            return true
         }
         else{
             this.todos[find].completed = false;
-            this.localstorage.save();
-            console.log(this.todos);
-            return false
         }
+        this.localstorage.save();
+        console.log(this.todos);
     }
 
 }

@@ -1,3 +1,5 @@
+import Edit from './edit.js';
+
 export default class View { //Only one import default per file and allows you to use whatever name you want when importing
 
     constructor(){
@@ -7,7 +9,9 @@ export default class View { //Only one import default per file and allows you to
         this.description = document.getElementById('description');
         //Onlick add
         this.btnAdd = document.getElementById('add');
-        this.btnAdd.onclick = () => this.addTodo(this.title.value, this.description.value);  
+        this.btnAdd.onclick = () => this.addTodo(this.title.value, this.description.value);
+        
+        this.edit = new Edit();
     }
 
     setModel(model){
@@ -57,7 +61,7 @@ export default class View { //Only one import default per file and allows you to
         <td>
             ${todo.description}
         </td>
-        <td class="text-center"><input class= "id_of_${todo.id}_check" type="checkbox"></td>
+        <td class="text-center"><input class="id_of_${todo.id}_check" type="checkbox"></td>
         <td class="text-right">
             <button class="btn btn-primary id_of_${todo.id}_edit mb-1">
                 <i class="fa fa-pencil"></i>
@@ -76,6 +80,21 @@ export default class View { //Only one import default per file and allows you to
         const toggle = document.getElementsByClassName(`id_of_${todo.id}_check`)[0];
         toggle.checked = todo.completed;
         toggle.onclick = () => this.toggleCompleted(toggle);
+
+        //Onclick Edit
+        const btnEdit = document.getElementsByClassName(`id_of_${todo.id}_edit`)[0];
+        btnEdit.onclick = () => {
+            const modalTitle = document.getElementsByClassName('modal-title')[0];
+            modalTitle.innerHTML = `<p>Edit todo: ${todo.title}</p>`;
+            btnEdit.setAttribute('data-toggle', 'modal');
+            btnEdit.setAttribute('data-target', '#modal');
+            const save = document.getElementById('modal-btn');
+            this.edit.getValues(todo);
+            save.onclick = () => {
+                this.edit.clickSave(todo)
+            };
+        }   
+        
     }
     
     removeTodo(row){
