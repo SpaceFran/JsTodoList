@@ -89,9 +89,9 @@ export default class View { //Only one import default per file and allows you to
             btnEdit.setAttribute('data-toggle', 'modal');
             btnEdit.setAttribute('data-target', '#modal');
             const save = document.getElementById('modal-btn');
-            this.edit.getValues(todo);
+            this.edit.getValues(todo); //Get the todo values and paste it in the edit form fields.
             save.onclick = () => {
-                this.edit.clickSave(todo)
+                this.edit.clickSave(todo); //Get the form values and paste it in the row
             };
         }   
         

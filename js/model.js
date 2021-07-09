@@ -26,7 +26,7 @@ export default class Model { //Only one import default per file and allows you t
     }
 
     getTodos(){
-        return this.todos;
+        return this.todos.map((todo) => ({...todo}));
     }
 
     addTodo(title, description){
@@ -62,6 +62,7 @@ export default class Model { //Only one import default per file and allows you t
         }
         this.localstorage.save();
         console.log(this.todos);
+        location.reload();
     }
 
 }
