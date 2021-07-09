@@ -52,11 +52,12 @@ export default class Model { //Only one import default per file and allows you t
     toggleCompleted(toggle){
         const index = toggle.classList[0];
         const find = this.todos.findIndex((todo) => `id_of_${todo.id}_check` === index);
+        const todo = this.todos[find];
         if (toggle.checked){
-            this.todos[find].completed = true;
+            todo.completed = true;
         }
         else{
-            this.todos[find].completed = false;
+            todo.completed = false;
         }
         this.localstorage.save();
     }
