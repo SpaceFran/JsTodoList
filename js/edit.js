@@ -1,3 +1,7 @@
+import LocalStorage from "./localstorage.js";
+
+const retrieveLs = new LocalStorage();
+
 export default class Edit{
 
     constructor(){
@@ -25,16 +29,13 @@ export default class Edit{
             btnDeleteParent.children[1].innerHTML = this.description.value
             btnDeleteParent.children[2].firstChild.checked = this.completed.checked;
 
-            const todos = JSON.parse(localStorage.getItem('todos'));
+            const todos = retrieveLs.retrieve();
             const selectedTodo = todo.id;
-            console.log('Todo id', selectedTodo);
             const positionSelectedTodo = todos.findIndex((todo) => todo.id === selectedTodo);
-            console.log('Todo position in the Array', positionSelectedTodo);
             const todoInArray = todos[positionSelectedTodo];
             todoInArray.title = this.title.value;
             todoInArray.description = this.description.value;
             todoInArray.completed = this.completed.checked;
-            console.log('Titulo:', todoInArray.title, 'Descripcion:', todoInArray.description, 'Completed:', todoInArray.completed);
 
             localStorage.setItem('todos', JSON.stringify(todos));
 

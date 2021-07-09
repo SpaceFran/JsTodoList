@@ -44,10 +44,6 @@ export default class View { //Only one import default per file and allows you to
             this.title.value = '';
             this.description.value = '';
         }
-
-        const retrievedLocalStorageTodos = this.localstorage.retrieve(); //Get the LocalStorage
-        console.log('Retrieved from Local Storage', retrievedLocalStorageTodos);
-
     }
 
     createRow(todo){

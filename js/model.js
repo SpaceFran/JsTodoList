@@ -39,7 +39,6 @@ export default class Model { //Only one import default per file and allows you t
 
         this.todos.push(todo);
         this.localstorage.save(); //Add the todo to the localstorage after we add the todo the the array.
-        console.log('Database (Array)',this.todos);
         return{...todo}; //Creating another todo exactly the same but we make sure the (const todo) one is kinda encapsulated.
     }
 
@@ -48,7 +47,6 @@ export default class Model { //Only one import default per file and allows you t
         const find = this.todos.findIndex((todo) => `id_of_${todo.id}_delete` === index); //Returns the position of the element in the array
         this.todos.splice(find, 1); //Where it starts and how many to remove after that
         this.localstorage.save();
-        console.log(this.todos);
     }
 
     toggleCompleted(toggle){
@@ -61,8 +59,6 @@ export default class Model { //Only one import default per file and allows you t
             this.todos[find].completed = false;
         }
         this.localstorage.save();
-        console.log(this.todos);
-        location.reload();
     }
 
 }
