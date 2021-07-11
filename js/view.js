@@ -1,4 +1,5 @@
 import Edit from './edit.js';
+import Filter from './filters.js'
 
 export default class View { //Only one import default per file and allows you to use whatever name you want when importing
 
@@ -7,11 +8,16 @@ export default class View { //Only one import default per file and allows you to
         this.localstorage = null;
         this.title = document.getElementById('title');
         this.description = document.getElementById('description');
+        this.table = document.getElementById('table'); 
+        this.row = this.table.children[1]; //Tbody
         //Onlick add
         this.btnAdd = document.getElementById('add');
         this.btnAdd.onclick = () => this.addTodo(this.title.value, this.description.value);
         
         this.edit = new Edit();
+
+        this.filter = new Filter();
+        this.filter.onClick((filters) => this.filters(filters));
     }
 
     setModel(model){
@@ -47,9 +53,7 @@ export default class View { //Only one import default per file and allows you to
     }
 
     createRow(todo){
-        const table = document.getElementById('table'); 
-        const row = table.children[1]; //Get the tbody
-        const rowBody = row.insertRow(); //Insert row into body
+        const rowBody = this.row.insertRow(); //Insert row into body
         rowBody.innerHTML = `
         <td>
             ${todo.title}
@@ -107,4 +111,31 @@ export default class View { //Only one import default per file and allows you to
         this.model.toggleCompleted(toggle);
     }
     
+    filters(filters){
+        const { type, words } = filters;
+        const [...rows] = this.row.getElementsByTagName('tr');
+        for(const row of rows){
+            const [title, description, completed] = row.children;
+            let hide = false;
+            if (words){
+                hide = !title.innerText.includes(words) && !description.innerText.includes(words);
+            }
+
+            const completedBoolean = type === 'completed';
+            const isCompleted = completed.firstChild.checked;
+
+            if(type !== 'all' && completedBoolean !== isCompleted){
+                hide = true;
+            }
+
+            if (hide){
+                row.classList.add('d-none');
+            }
+            else{
+                row.classList.remove('d-none');
+            }
+        }
+
+    }
+
 }
