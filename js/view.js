@@ -5,7 +5,6 @@ export default class View { //Only one import default per file and allows you to
 
     constructor(){
         this.model = null;
-        this.localstorage = null;
         this.title = document.getElementById('title');
         this.description = document.getElementById('description');
         this.table = document.getElementById('table'); 
@@ -22,10 +21,6 @@ export default class View { //Only one import default per file and allows you to
 
     setModel(model){
         this.model = model;
-    }
-
-    getLocalStorage(localstorage){
-        this.localstorage = localstorage;
     }
 
     render(){
