@@ -1,5 +1,5 @@
 import Edit from './edit.js';
-import Filter from './filters.js'
+import Filter from './filters.js';
 
 export default class View { //Only one import default per file and allows you to use whatever name you want when importing
 
